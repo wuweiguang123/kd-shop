@@ -2,6 +2,9 @@ package com.lvr.kdshop.service;
 
 import com.lvr.kdshop.entity.Goods;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.lvr.kdshop.entity.vo.GoodsVo;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IGoodsService extends IService<Goods> {
 
+    List<GoodsVo> getGoodsAndImage();
 }

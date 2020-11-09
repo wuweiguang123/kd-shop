@@ -29,13 +29,13 @@ public class User extends Model<User> implements Serializable {
 
     private String password;
 
-    private String create_at;
+    private String createAt;
 
-    private Integer goods_num;
+    private Integer goodsNum;
 
     private Integer power;
 
-    private String last_login;
+    private String lastLogin;
 
     private Integer status;
 
@@ -43,7 +43,7 @@ public class User extends Model<User> implements Serializable {
 
     private String sex;
 
-    private String img_url;
+    private String imgUrl;
 
     private String residence;
 
@@ -61,14 +61,14 @@ public class User extends Model<User> implements Serializable {
         ", phone=" + phone +
         ", username=" + username +
         ", password=" + password +
-        ", create_at=" + create_at +
-        ", goods_num=" + goods_num +
+        ", createAt=" + createAt +
+        ", goodsNum=" + goodsNum +
         ", power=" + power +
-        ", last_login=" + last_login +
+        ", lastLogin=" + lastLogin +
         ", status=" + status +
         ", birthday=" + birthday +
         ", sex=" + sex +
-        ", img_url=" + img_url +
+        ", imgUrl=" + imgUrl +
         ", residence=" + residence +
         ", signature=" + signature +
         "}";

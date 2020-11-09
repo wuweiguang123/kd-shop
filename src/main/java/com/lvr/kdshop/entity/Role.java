@@ -26,4 +26,5 @@ public class Role extends Model<Role> {
         return this.id;
     }
 
+
 }
