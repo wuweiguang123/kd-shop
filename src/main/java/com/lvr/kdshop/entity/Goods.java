@@ -23,37 +23,40 @@ public class Goods extends Model<Goods> {
       @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    private Integer catelog_id;
+    private Integer catelogId;
 
-    private Integer user_id;
+    private Integer userId;
 
     private String name;
 
     private Double price;
 
-    private Double real_price;
+    private Double realPrice;
 
-    private String start_time;
+    private String startTime;
 
-    private String polish_time;
+    private String polishTime;
 
-    private String end_time;
+    private String endTime;
 
-    private Integer commet_num;
+    private Integer commetNum;
 
-    private String phone_number;
+    private String phoneNumber;
 
-    private String qq_number;
+    private String qqNumber;
 
-    private String wx_number;
+    private String wxNumber;
 
-    private String good_city;
+    private String goodCity;
 
-    private String good_buy_method;
+    private String goodBuyMethod;
 
-    private String good_address;
+    private String goodAddress;
 
-    private Integer view_count;
+    /**
+     * 排序字段
+     */
+    private Integer viewCount;
 
     private String describle;
 
@@ -64,28 +67,4 @@ public class Goods extends Model<Goods> {
         return this.id;
     }
 
-    @Override
-    public String toString() {
-        return "Goods{" +
-        "id=" + id +
-        ", catelog_id=" + catelog_id +
-        ", user_id=" + user_id +
-        ", name=" + name +
-        ", price=" + price +
-        ", real_price=" + real_price +
-        ", start_time=" + start_time +
-        ", polish_time=" + polish_time +
-        ", end_time=" + end_time +
-        ", commet_num=" + commet_num +
-        ", phone_number=" + phone_number +
-        ", qq_number=" + qq_number +
-        ", wx_number=" + wx_number +
-        ", good_city=" + good_city +
-        ", good_buy_method=" + good_buy_method +
-        ", good_address=" + good_address +
-        ", view_count=" + view_count +
-        ", describle=" + describle +
-        ", status=" + status +
-        "}";
-    }
 }
