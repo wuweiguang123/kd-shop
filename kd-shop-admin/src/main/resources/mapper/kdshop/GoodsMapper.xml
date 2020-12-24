@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lvr.kdshop.mapper.GoodsMapper">
+    
+    <resultMap type="Goods" id="GoodsResult">
+        <result property="id"    column="id"    />
+        <result property="catelogId"    column="catelog_id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="name"    column="name"    />
+        <result property="price"    column="price"    />
+        <result property="realPrice"    column="real_price"    />
+        <result property="startTime"    column="start_time"    />
+        <result property="polishTime"    column="polish_time"    />
+        <result property="endTime"    column="end_time"    />
+        <result property="commetNum"    column="commet_num"    />
+        <result property="phoneNumber"    column="phone_number"    />
+        <result property="qqNumber"    column="qq_number"    />
+        <result property="wxNumber"    column="wx_number"    />
+        <result property="goodCity"    column="good_city"    />
+        <result property="goodBuyMethod"    column="good_buy_method"    />
+        <result property="goodAddress"    column="good_address"    />
+        <result property="viewcount"    column="viewCount"    />
+        <result property="describle"    column="describle"    />
+        <result property="status"    column="status"    />
+    </resultMap>
+
+    <sql id="selectGoodsVo">
+        select id, catelog_id, user_id, name, price, real_price, start_time, polish_time, end_time, commet_num, phone_number, qq_number, wx_number, good_city, good_buy_method, good_address, viewCount, describle, status from kd_goods
+    </sql>
+
+    <select id="selectGoodsList" parameterType="Goods" resultMap="GoodsResult">
+        <include refid="selectGoodsVo"/>
+        <where>  
+            <if test="catelogId != null "> and catelog_id = #{catelogId}</if>
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="price != null "> and price = #{price}</if>
+            <if test="realPrice != null "> and real_price = #{realPrice}</if>
+            <if test="startTime != null  and startTime != ''"> and start_time = #{startTime}</if>
+            <if test="polishTime != null  and polishTime != ''"> and polish_time = #{polishTime}</if>
+            <if test="endTime != null  and endTime != ''"> and end_time = #{endTime}</if>
+            <if test="commetNum != null "> and commet_num = #{commetNum}</if>
+            <if test="phoneNumber != null  and phoneNumber != ''"> and phone_number = #{phoneNumber}</if>
+            <if test="qqNumber != null  and qqNumber != ''"> and qq_number = #{qqNumber}</if>
+            <if test="wxNumber != null  and wxNumber != ''"> and wx_number = #{wxNumber}</if>
+            <if test="goodCity != null  and goodCity != ''"> and good_city = #{goodCity}</if>
+            <if test="goodBuyMethod != null  and goodBuyMethod != ''"> and good_buy_method = #{goodBuyMethod}</if>
+            <if test="goodAddress != null  and goodAddress != ''"> and good_address = #{goodAddress}</if>
+            <if test="viewcount != null "> and viewCount = #{viewcount}</if>
+            <if test="describle != null  and describle != ''"> and describle = #{describle}</if>
+            <if test="status != null "> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectGoodsById" parameterType="Long" resultMap="GoodsResult">
+        <include refid="selectGoodsVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertGoods" parameterType="Goods" useGeneratedKeys="true" keyProperty="id">
+        insert into kd_goods
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="catelogId != null">catelog_id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="name != null and name != ''">name,</if>
+            <if test="price != null">price,</if>
+            <if test="realPrice != null">real_price,</if>
+            <if test="startTime != null">start_time,</if>
+            <if test="polishTime != null">polish_time,</if>
+            <if test="endTime != null">end_time,</if>
+            <if test="commetNum != null">commet_num,</if>
+            <if test="phoneNumber != null">phone_number,</if>
+            <if test="qqNumber != null">qq_number,</if>
+            <if test="wxNumber != null">wx_number,</if>
+            <if test="goodCity != null">good_city,</if>
+            <if test="goodBuyMethod != null">good_buy_method,</if>
+            <if test="goodAddress != null">good_address,</if>
+            <if test="viewcount != null">viewCount,</if>
+            <if test="describle != null">describle,</if>
+            <if test="status != null">status,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="catelogId != null">#{catelogId},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="price != null">#{price},</if>
+            <if test="realPrice != null">#{realPrice},</if>
+            <if test="startTime != null">#{startTime},</if>
+            <if test="polishTime != null">#{polishTime},</if>
+            <if test="endTime != null">#{endTime},</if>
+            <if test="commetNum != null">#{commetNum},</if>
+            <if test="phoneNumber != null">#{phoneNumber},</if>
+            <if test="qqNumber != null">#{qqNumber},</if>
+            <if test="wxNumber != null">#{wxNumber},</if>
+            <if test="goodCity != null">#{goodCity},</if>
+            <if test="goodBuyMethod != null">#{goodBuyMethod},</if>
+            <if test="goodAddress != null">#{goodAddress},</if>
+            <if test="viewcount != null">#{viewcount},</if>
+            <if test="describle != null">#{describle},</if>
+            <if test="status != null">#{status},</if>
+         </trim>
+    </insert>
+
+    <update id="updateGoods" parameterType="Goods">
+        update kd_goods
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="catelogId != null">catelog_id = #{catelogId},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="realPrice != null">real_price = #{realPrice},</if>
+            <if test="startTime != null">start_time = #{startTime},</if>
+            <if test="polishTime != null">polish_time = #{polishTime},</if>
+            <if test="endTime != null">end_time = #{endTime},</if>
+            <if test="commetNum != null">commet_num = #{commetNum},</if>
+            <if test="phoneNumber != null">phone_number = #{phoneNumber},</if>
+            <if test="qqNumber != null">qq_number = #{qqNumber},</if>
+            <if test="wxNumber != null">wx_number = #{wxNumber},</if>
+            <if test="goodCity != null">good_city = #{goodCity},</if>
+            <if test="goodBuyMethod != null">good_buy_method = #{goodBuyMethod},</if>
+            <if test="goodAddress != null">good_address = #{goodAddress},</if>
+            <if test="viewcount != null">viewCount = #{viewcount},</if>
+            <if test="describle != null">describle = #{describle},</if>
+            <if test="status != null">status = #{status},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteGoodsById" parameterType="Long">
+        delete from kd_goods where id = #{id}
+    </delete>
+
+    <delete id="deleteGoodsByIds" parameterType="String">
+        delete from kd_goods where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

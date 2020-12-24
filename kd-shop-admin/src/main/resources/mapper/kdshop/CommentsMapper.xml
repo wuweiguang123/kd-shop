@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lvr.kdshop.mapper.CommentsMapper">
+    
+    <resultMap type="Comments" id="CommentsResult">
+        <result property="id"    column="id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="goodsId"    column="goods_id"    />
+        <result property="createAt"    column="create_at"    />
+        <result property="content"    column="content"    />
+    </resultMap>
+
+    <sql id="selectCommentsVo">
+        select id, user_id, goods_id, create_at, content from kd_comments
+    </sql>
+
+    <select id="selectCommentsList" parameterType="Comments" resultMap="CommentsResult">
+        <include refid="selectCommentsVo"/>
+        <where>  
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="goodsId != null "> and goods_id = #{goodsId}</if>
+            <if test="createAt != null  and createAt != ''"> and create_at = #{createAt}</if>
+            <if test="content != null  and content != ''"> and content = #{content}</if>
+        </where>
+    </select>
+    
+    <select id="selectCommentsById" parameterType="Long" resultMap="CommentsResult">
+        <include refid="selectCommentsVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertComments" parameterType="Comments" useGeneratedKeys="true" keyProperty="id">
+        insert into kd_comments
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="goodsId != null">goods_id,</if>
+            <if test="createAt != null">create_at,</if>
+            <if test="content != null">content,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="goodsId != null">#{goodsId},</if>
+            <if test="createAt != null">#{createAt},</if>
+            <if test="content != null">#{content},</if>
+         </trim>
+    </insert>
+
+    <update id="updateComments" parameterType="Comments">
+        update kd_comments
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="goodsId != null">goods_id = #{goodsId},</if>
+            <if test="createAt != null">create_at = #{createAt},</if>
+            <if test="content != null">content = #{content},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCommentsById" parameterType="Long">
+        delete from kd_comments where id = #{id}
+    </delete>
+
+    <delete id="deleteCommentsByIds" parameterType="String">
+        delete from kd_comments where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>
