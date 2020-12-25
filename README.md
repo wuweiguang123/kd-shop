@@ -2,15 +2,20 @@
 
 后端
 
-![images](https://img.shields.io/badge/SpringBoot-2.2.7-brightgreen) 
-![images](https://img.shields.io/badge/MybatisPlus-3.3-yellowgreen)
+![images](https://img.shields.io/badge/SpringBoot-2.2.12.RELEASE-brightgreen) 
+![images](https://img.shields.io/badge/Mybatis-3.3-yellowgreen)
+![images](https://img.shields.io/badge/jwt-0.9.1-yellow)
 
 前端
 
 ![images](https://img.shields.io/badge/Vue-2.6-green)
-![images](https://img.shields.io/badge/vue--router-3.2-yellow)
-![images](https://img.shields.io/badge/ElementUI-2.13-blue)
-![images](https://img.shields.io/badge/axios-0.20-green)
+![images](https://img.shields.io/badge/vue--router-3.4.9-yellow)
+![images](https://img.shields.io/badge/vuex-3.6.0-orange)
+![images](https://img.shields.io/badge/ElementUI-2.14.1-blue)
+![images](https://img.shields.io/badge/axios-0.21.0-green)
+![images](https://img.shields.io/badge/echarts-4.9.0-blue)
+![images](https://img.shields.io/badge/sass-0.9.1-gray)
+
 #### 基于科大二手工坊的V2.0版本
 
 ## 项目介绍
@@ -61,5 +66,5 @@ poi jwt shiro-redis...
 
 ## 鸣谢
 
-感谢开源项目 [官网：RuoYi-Vue](http://www.ruoyi.vip) 为本项目提供的技术支持
+感谢开源项目 [官网：RuoYi-Vue](http://www.ruoyi.vip) 为本项目提供了技术支持
 
