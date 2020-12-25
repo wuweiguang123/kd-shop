@@ -70,7 +70,25 @@ jwt做登录token校验
 
 ## 关于本项目
 
-感兴趣的话可以添加 qq群 696224249 一起讨论哦^v^
+环境准备：
+
+项目开发环境： IDEA
+
+数据库：Mysql5.7
+
+后端:
+
+1. 启动本地 `Redis-server` 不需要密码 [下载地址 (提取码: aabs)](https://pan.baidu.com/s/1u4LOwn-SIjgY8bvA3_o__g)
+2. 导入sql文件 在项目根目录 `sql` 文件夹下
+3. 在 `kd-shop-admin` 模块 启动 `KdShopApplication`
+
+前端：
+
+1. 进入到前端工程目录 `cd kd-shop-web`
+2. 安装依赖 `npm install`
+3. 启动项目 `npm run dev`
+
+感兴趣的话可以添加 qq群 696224249 一起讨论哦 ^v^
 
 ## 鸣谢
 
