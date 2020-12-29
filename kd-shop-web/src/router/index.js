@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from '@/store'
 
 Vue.use(Router)
 
@@ -54,15 +55,30 @@ export const constantRoutes = [
     hidden: true
   },
   {
+    path: '/index',
+    redirect: to => {
+      if(store.getters.roles.includes('student')) {
+        return '/home'
+      } else {
+        return ''
+      }
+    }
+  },
+  {
+    path: '/home',
+    component: resolve => require(['@/views/index'], resolve),
+    hidden: true
+  },
+  {
     path: '',
     component: Layout,
     redirect: 'index',
     children: [
       {
         path: 'index',
-        component: (resolve) => require(['@/views/index'], resolve),
-        name: '首页',
-        meta: { title: '首页', icon: 'dashboard', noCache: true, affix: true }
+        component: (resolve) => require(['@/views/admin/index'], resolve),
+        name: '后台首页',
+        meta: { title: '后台首页', icon: 'dashboard', noCache: true, affix: true }
       }
     ]
   },
@@ -103,19 +119,6 @@ export const constantRoutes = [
         component: (resolve) => require(['@/views/monitor/job/log'], resolve),
         name: 'JobLog',
         meta: { title: '调度日志' }
-      }
-    ]
-  },
-  {
-    path: '/gen',
-    component: Layout,
-    hidden: true,
-    children: [
-      {
-        path: 'edit/:tableId(\\d+)',
-        component: (resolve) => require(['@/views/tool/gen/editTable'], resolve),
-        name: 'GenEdit',
-        meta: { title: '修改生成配置' }
       }
     ]
   }

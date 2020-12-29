@@ -3,11 +3,17 @@
     <!-- header start -->
     <el-header>
       <div class="logo">
-        <img src="src/assets/logo/kdmall-logo.png">
+        <img :src="logo">
       </div>
       <div class="nav-right">
-        <el-link>注册</el-link>
-        <el-link class="login-btn">登录</el-link>
+        <div v-if="userName">
+          欢迎：<el-link>{{userName}}</el-link> &nbsp;&nbsp;&nbsp;&nbsp;
+          <el-link @click="logout">退出</el-link>
+        </div>
+        <div v-else>
+          <el-link>注册</el-link>
+          <el-link class="login-btn">登录</el-link>
+        </div>
       </div>
     </el-header>
     <!-- header end -->
@@ -71,40 +77,59 @@
 </template>
 
 <script>
-    import { indexData } from '@/utils/api.js' // 导入api接口
+    import logoImage from '@/assets/logo/kdmall-logo.png'
+    // import { indexData } from '@/utils/api.js' // 导入api接口
 
     export default {
         name: 'Index',
         data() {
             return {
-                catelogs: [],
-                banners: [],
-                goods: [],
-                input3: '',
-                select: ''
+              logo: logoImage,
+              userName: '',
+              catelogs: [],
+              banners: [],
+              goods: [],
+              input3: '',
+              select: ''
             }
         },
         // 组件创建时执行
         created() {
-            this.getIndexData()
+          this.getUserInfo()
+          this.getIndexData()
         },
         methods: {
-            getIndexData() {
-                indexData().then(res => {
-                    // 处理响应数据
-                    console.log(res)
-                    this.catelogs = res.data.catelogs
-                    this.banners = res.data.carousels
-                    this.goods = res.data.goods
-                }).catch(error => {
-                    console.log(error)
-                })
-            }
+          getUserInfo() {
+            // console.log(this.$store.state.user)
+            this.userName = this.$store.state.user.name
+          },
+          getIndexData() {
+              // indexData().then(res => {
+              //     // 处理响应数据
+              //     console.log(res)
+              //     this.catelogs = res.data.catelogs
+              //     this.banners = res.data.carousels
+              //     this.goods = res.data.goods
+              // }).catch(error => {
+              //     console.log(error)
+              // })
+          },
+          logout() {
+            this.$confirm('确定注销并退出系统吗？', '提示', {
+              confirmButtonText: '确定',
+              cancelButtonText: '取消',
+              type: 'warning'
+            }).then(() => {
+              this.$store.dispatch('LogOut').then(() => {
+                location.href = '/index';
+              })
+            })
+          }
         }
     }
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
   .el-header, .el-footer {
     background-color: #FFF;
     color: #333;
