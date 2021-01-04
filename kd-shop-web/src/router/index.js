@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import store from '@/store'
 
 Vue.use(Router)
 
@@ -55,16 +54,6 @@ export const constantRoutes = [
     hidden: true
   },
   {
-    path: '/index',
-    redirect: to => {
-      if(store.getters.roles.includes('student')) {
-        return '/home'
-      } else {
-        return ''
-      }
-    }
-  },
-  {
     path: '/home',
     component: resolve => require(['@/views/index'], resolve),
     hidden: true
@@ -72,10 +61,10 @@ export const constantRoutes = [
   {
     path: '',
     component: Layout,
-    redirect: 'index',
+    redirect: 'admin',
     children: [
       {
-        path: 'index',
+        path: 'admin',
         component: (resolve) => require(['@/views/admin/index'], resolve),
         name: '后台首页',
         meta: { title: '后台首页', icon: 'dashboard', noCache: true, affix: true }

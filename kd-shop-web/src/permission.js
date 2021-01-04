@@ -25,7 +25,12 @@ router.beforeEach((to, from, next) => {
           store.dispatch('GenerateRoutes', { roles }).then(accessRoutes => {
             // 根据roles权限生成可访问的路由表
             router.addRoutes(accessRoutes) // 动态添加可访问路由表
-            next({ ...to, replace: true }) // hack方法 确保addRoutes已完成
+            if(roles.includes('student')) { //使用学生用户登录
+              next({path: '/home'})
+            } else {
+              next({ ...{path: '/admin'}, replace: true })
+            }
+            //next({ ...to, replace: true }) // hack方法 确保addRoutes已完成
           })
         }).catch(err => {
             store.dispatch('LogOut').then(() => {

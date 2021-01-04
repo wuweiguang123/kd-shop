@@ -12,7 +12,7 @@
         </div>
         <div v-else>
           <el-link>注册</el-link>
-          <el-link class="login-btn">登录</el-link>
+          <el-link class="login-btn" @click.native="toLogin">登录</el-link>
         </div>
       </div>
     </el-header>
@@ -99,6 +99,9 @@
           this.getIndexData()
         },
         methods: {
+          toLogin() {
+            location.href = '/login'
+          },
           getUserInfo() {
             // console.log(this.$store.state.user)
             this.userName = this.$store.state.user.name
@@ -121,7 +124,7 @@
               type: 'warning'
             }).then(() => {
               this.$store.dispatch('LogOut').then(() => {
-                location.href = '/index';
+                location.href = '/';
               })
             })
           }
