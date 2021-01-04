@@ -26,7 +26,7 @@ router.beforeEach((to, from, next) => {
             // 根据roles权限生成可访问的路由表
             router.addRoutes(accessRoutes) // 动态添加可访问路由表
             if(roles.includes('student')) { //使用学生用户登录
-              next({path: '/home'})
+              next({path: '/home', replace: true})
             } else {
               next({ ...{path: '/admin'}, replace: true })
             }
