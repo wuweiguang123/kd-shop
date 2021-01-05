@@ -20,11 +20,9 @@
     <!-- main start -->
     <el-main>
       <div class="main-search">
-        <el-input placeholder="请输入内容" v-model="input3" class="input-with-select">
-          <el-select v-model="select" slot="prepend" placeholder="请选择">
-            <el-option label="书籍" value="1" />
-            <el-option label="数码" value="2" />
-            <el-option label="日用品" value="3" />
+        <el-input placeholder="请输入内容" v-model="searchKey.name" class="input-with-select">
+          <el-select v-model="searchKey.catelogId" slot="prepend" placeholder="请选择">
+            <el-option v-for="(index, item) in catelogs" :key="index" :label="item.name" :value="item.id"/>
           </el-select>
           <el-button slot="append" icon="el-icon-search" />
         </el-input>
@@ -78,7 +76,7 @@
 
 <script>
     import logoImage from '@/assets/logo/kdmall-logo.png'
-    // import { indexData } from '@/utils/api.js' // 导入api接口
+    import { indexData } from '@/api/kdshop/home.js' // 导入api接口
 
     export default {
         name: 'Index',
@@ -89,8 +87,10 @@
               catelogs: [],
               banners: [],
               goods: [],
-              input3: '',
-              select: ''
+              searchKey: {
+                name: '',
+                catelogId: 0
+              },
             }
         },
         // 组件创建时执行
@@ -107,15 +107,15 @@
             this.userName = this.$store.state.user.name
           },
           getIndexData() {
-              // indexData().then(res => {
-              //     // 处理响应数据
-              //     console.log(res)
-              //     this.catelogs = res.data.catelogs
-              //     this.banners = res.data.carousels
-              //     this.goods = res.data.goods
-              // }).catch(error => {
-              //     console.log(error)
-              // })
+              indexData(this.searchKey).then(res => {
+                  // 处理响应数据
+                  console.log(res.data)
+                  this.catelogs = res.data.catelog
+                  this.banners = res.data.carousel
+                  this.goods = res.data.goods
+              }).catch(error => {
+                  console.log(error)
+              })
           },
           logout() {
             this.$confirm('确定注销并退出系统吗？', '提示', {
