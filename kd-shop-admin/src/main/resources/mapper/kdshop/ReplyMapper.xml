@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lvr.kdshop.mapper.ReplyMapper">
+    
+    <resultMap type="Reply" id="ReplyResult">
+        <result property="id"    column="id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="atuserId"    column="atuser_id"    />
+        <result property="commetId"    column="commet_id"    />
+        <result property="createAt"    column="create_at"    />
+        <result property="content"    column="content"    />
+    </resultMap>
+
+    <sql id="selectReplyVo">
+        select id, user_id, atuser_id, commet_id, create_at, content from kd_reply
+    </sql>
+
+    <select id="selectReplyList" parameterType="Reply" resultMap="ReplyResult">
+        <include refid="selectReplyVo"/>
+        <where>  
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="atuserId != null "> and atuser_id = #{atuserId}</if>
+            <if test="commetId != null "> and commet_id = #{commetId}</if>
+            <if test="createAt != null  and createAt != ''"> and create_at = #{createAt}</if>
+            <if test="content != null  and content != ''"> and content = #{content}</if>
+        </where>
+    </select>
+    
+    <select id="selectReplyById" parameterType="Long" resultMap="ReplyResult">
+        <include refid="selectReplyVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertReply" parameterType="Reply">
+        insert into kd_reply
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="atuserId != null">atuser_id,</if>
+            <if test="commetId != null">commet_id,</if>
+            <if test="createAt != null">create_at,</if>
+            <if test="content != null">content,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="atuserId != null">#{atuserId},</if>
+            <if test="commetId != null">#{commetId},</if>
+            <if test="createAt != null">#{createAt},</if>
+            <if test="content != null">#{content},</if>
+         </trim>
+    </insert>
+
+    <update id="updateReply" parameterType="Reply">
+        update kd_reply
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="atuserId != null">atuser_id = #{atuserId},</if>
+            <if test="commetId != null">commet_id = #{commetId},</if>
+            <if test="createAt != null">create_at = #{createAt},</if>
+            <if test="content != null">content = #{content},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteReplyById" parameterType="Long">
+        delete from kd_reply where id = #{id}
+    </delete>
+
+    <delete id="deleteReplyByIds" parameterType="String">
+        delete from kd_reply where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

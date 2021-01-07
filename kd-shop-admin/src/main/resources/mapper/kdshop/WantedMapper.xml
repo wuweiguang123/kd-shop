@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lvr.kdshop.mapper.WantedMapper">
+    
+    <resultMap type="Wanted" id="WantedResult">
+        <result property="id"    column="id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="goodId"    column="good_id"    />
+        <result property="createAt"    column="create_at"    />
+    </resultMap>
+
+    <sql id="selectWantedVo">
+        select id, user_id, good_id, create_at from kd_wanted
+    </sql>
+
+    <select id="selectWantedList" parameterType="Wanted" resultMap="WantedResult">
+        <include refid="selectWantedVo"/>
+        <where>  
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="goodId != null "> and good_id = #{goodId}</if>
+            <if test="createAt != null  and createAt != ''"> and create_at = #{createAt}</if>
+        </where>
+    </select>
+    
+    <select id="selectWantedById" parameterType="Long" resultMap="WantedResult">
+        <include refid="selectWantedVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertWanted" parameterType="Wanted" useGeneratedKeys="true" keyProperty="id">
+        insert into kd_wanted
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="goodId != null">good_id,</if>
+            <if test="createAt != null">create_at,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="goodId != null">#{goodId},</if>
+            <if test="createAt != null">#{createAt},</if>
+         </trim>
+    </insert>
+
+    <update id="updateWanted" parameterType="Wanted">
+        update kd_wanted
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="goodId != null">good_id = #{goodId},</if>
+            <if test="createAt != null">create_at = #{createAt},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteWantedById" parameterType="Long">
+        delete from kd_wanted where id = #{id}
+    </delete>
+
+    <delete id="deleteWantedByIds" parameterType="String">
+        delete from kd_wanted where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

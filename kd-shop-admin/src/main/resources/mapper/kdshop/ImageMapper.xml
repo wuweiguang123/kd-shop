@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lvr.kdshop.mapper.ImageMapper">
+    
+    <resultMap type="Image" id="ImageResult">
+        <result property="id"    column="id"    />
+        <result property="goodsId"    column="goods_id"    />
+        <result property="imgUrl"    column="img_url"    />
+    </resultMap>
+
+    <sql id="selectImageVo">
+        select id, goods_id, img_url from kd_image
+    </sql>
+
+    <select id="selectImageList" parameterType="Image" resultMap="ImageResult">
+        <include refid="selectImageVo"/>
+        <where>  
+            <if test="goodsId != null "> and goods_id = #{goodsId}</if>
+            <if test="imgUrl != null  and imgUrl != ''"> and img_url = #{imgUrl}</if>
+        </where>
+    </select>
+    
+    <select id="selectImageById" parameterType="Long" resultMap="ImageResult">
+        <include refid="selectImageVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertImage" parameterType="Image" useGeneratedKeys="true" keyProperty="id">
+        insert into kd_image
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="goodsId != null">goods_id,</if>
+            <if test="imgUrl != null">img_url,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="goodsId != null">#{goodsId},</if>
+            <if test="imgUrl != null">#{imgUrl},</if>
+         </trim>
+    </insert>
+
+    <update id="updateImage" parameterType="Image">
+        update kd_image
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="goodsId != null">goods_id = #{goodsId},</if>
+            <if test="imgUrl != null">img_url = #{imgUrl},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteImageById" parameterType="Long">
+        delete from kd_image where id = #{id}
+    </delete>
+
+    <delete id="deleteImageByIds" parameterType="String">
+        delete from kd_image where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>
